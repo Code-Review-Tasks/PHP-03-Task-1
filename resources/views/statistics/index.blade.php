@@ -21,8 +21,8 @@
                 <td>{{ $stat->title }}</td>
                 <td>{{ $stat->short_link }}</td>
                 <td>{{ $stat->long_link }}</td>
-                <td>{{ $stat->linkStatistics->count() }}</td>
-                <td>{{ $stat->linkStatistics->groupBy("user_ip")->count() }}</td>
+                <td>{{ $stat->statistics->count() }}</td>
+                <td>{{ $stat->statistics->groupBy("user_ip")->count() }}</td>
             </tr>
         @empty
             <td>No links</td>

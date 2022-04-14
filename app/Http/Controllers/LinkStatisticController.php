@@ -11,7 +11,7 @@ class LinkStatisticController extends Controller
 
     public function index() : View
     {
-        $statistics = Link::with("linkStatistics")->get();
+        $statistics = Link::with("statistics")->get();
         return view("statistics.index", compact("statistics"));
     }
 }

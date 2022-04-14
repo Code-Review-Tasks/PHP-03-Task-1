@@ -14,7 +14,7 @@
        role="button">Edite link</a>
 
     <h1>Show link statistic</h1>
-    <p>Total views: {{ $link->linkStatistics->count() }}</p>
+    <p>Total views: {{ $link->statistics->count() }}</p>
 
     <table class="table table-striped table-bordered">
         <thead>
