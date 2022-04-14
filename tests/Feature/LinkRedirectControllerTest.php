@@ -22,14 +22,17 @@ class LinkRedirectControllerTest extends TestCase
 
     public function testRedirect(): void
     {
-        $response = $this->get("/fakeShortLink");
-        $response->assertSessionHasNoErrors();
-        $response->assertRedirect("/");
-
         $response = $this->get($this->link->short_link);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect($this->link->long_link);
         $statistic = LinkStatistic::where("link_id", $this->link->id)->first()->toArray();
         $this->assertDatabaseHas('link_statistics', $statistic);
+    }
+
+    public function testFakeRedirect() : void
+    {
+        $response = $this->get("/fakeShortLink");
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect("/");
     }
 }
