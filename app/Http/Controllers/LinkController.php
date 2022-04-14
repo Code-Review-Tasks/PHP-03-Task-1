@@ -6,15 +6,16 @@ use App\Http\Requests\LinkRequest;
 use App\Models\Link;
 use App\Models\Tag;
 use App\Rules\ValidUrl;
+use App\Services\ShortLink\ShortLink;
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {
-    private $generateLink;
+    private $shortLink;
 
-    public function __construct(GenerateShortLinkController $generateLink)
+    public function __construct(ShortLink $shortLink)
     {
-        $this->generateLink = $generateLink;
+        $this->shortLink = $shortLink;
     }
     /**
      * Display a listing of the resource.
@@ -47,7 +48,7 @@ class LinkController extends Controller
     public function store(LinkRequest $request)
     {
         $data = $request->validated();
-        $data["short_link"] = $this->generateLink->generateShortLink();
+        $data["short_link"] = $this->shortLink->generate();
         $link = new Link();
         $link->fill($data);
         $link->save();

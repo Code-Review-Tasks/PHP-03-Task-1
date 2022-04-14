@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services\ShortLink;
 
-use Illuminate\Http\Request;
-
-class GenerateShortLinkController extends Controller
+class ShortLink
 {
-    public function generateShortLink( int $length = 10) : string
+    public function generate( int $length = 10) : string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
