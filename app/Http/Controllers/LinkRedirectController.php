@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use App\Models\LinkStatistic;
+use App\Services\Statistic\Statistic;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class LinkRedirectController extends Controller
 {
     private $stat;
 
-    public function __construct(LinkStatisticController $stat)
+    public function __construct(Statistic $stat)
     {
         $this->stat = $stat;
     }
