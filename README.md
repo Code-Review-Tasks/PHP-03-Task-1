@@ -1,90 +1,70 @@
+## Запуск
+
+`make setup`
+
+`make instal`
+
+Добавляем конфиг для бд в .env файл можно посмотреть в docker-compose.yaml
+
+Добавляем права при необходимости на папку `storage`
+
+Проверяем в браузере [localhost:8088](http://localhost:8088/)
+
+## Тест
+
+Перед запуском тестов нужно убедится что есть файл .env.testing
+если его нет пишем `cp -n .env.example .env.testing || true`
+и в нем настроен конфиг для тестовой базы данных который можно посмотреть
+в `docker-compose.yaml`
+Так же в нем должен быть APP_KEY, если нет пишем
+
+`php artisan key:generate --env=testing`
+
+Запуск тестов
+`make test`
+
+
 ## Конфиг
 * **php** = 8.0-fpm
 * **nginx** = 1.17
 * **postgres** = 12
+* **pgadmin** = dpage/pgadmin4
 
-## Описание
-На виндовс приложение в докере работает с задержкой, на линукс такого нет.
-
-на главной странице `/` либо по ссылке в меню `Ajax student index page` можно добавлять, редактировать, 
-удалять сущности используя технорлогию `ajax`
-
-на странице `/students` либо по ссылке в меню `NO ajax student index page` можно добавлять, смотреть, 
-редактировать, удалять сущности БЕЗ технорлогии `ajax`
-
-данные берутся из одной и той же таблицы. 
-
-## Запуск на виндовс
-Пишем в корневой директории в консоли
-
-`docker-compose up --build -d`
-
-после сборки докер контейнеров, вводим по очереди в командной строке:
-
-`docker exec -it esvet-php-fpm composer install`
-
-`cp -n .env.example .env || true`
-
-`php artisan key:generate`
-
-`docker exec -it esvet-php-fpm php artisan migrate`
-
-
-Проверяем в браузере [localhost:8085](http://localhost:8085/)
-
-
-## Запуск на linux
-
-`make setup`
-
-`make install`
-
-
-Далее на unix системах нужно добавить права на папки
-
-`/storage/logs` и `/storage/frameworks` и `/bootstrap/cache`,
-
-для этого нужно выполнить пункты из раздела `Возможные проблемы`
-
-Проверяем в браузере [localhost:8085](http://localhost:8085/)
 
 ## Возможные проблемы
 
-Если проект не запускается на linux, скорее всего проблемы с доступам к папкам,
-`/storage/logs` и `/storage/frameworks` и `/bootstrap/cache`, .
-Заходим на пк через терминал в корневую дерикторию и делаем следующее.
+Если есть проблемы с доступам к папкам,
+`/storage/logs` и `/storage/frameworks` и `/bootstrap/cache`,
+обычно бывает при работе на unix. Заходим на пк через терминал в рабочую
+дерикторию и делаем следующее.
 
 
 Заходим в корень проекта пишем:
-
-`sudo chown -R $USER:$USER .`
-
-`sudo chmod -R 775 .`
-
-`sudo chmod -R 775 storage`
-
-`sudo chmod -R ugo+rw storage`
-
-далее:
-
-`sudo chown -R www-data:www-data ./storage/logs/`
-
-`sudo chown -R www-data:www-data ./storage/framework/`
-
-`sudo chown -R www-data:www-data ./bootstrap/cache`
+	@@ -59,7 +75,7 @@
 
 `sudo chmod -R 775 ./bootstrap/cache`
 
-Если все равно остались проблемы, пишем в консоли
+Если все равно есть проблемы делаем так
 
 `sudo chown -R $USER:www-data storage`
 
-`sudo chown -R $USER:www-data bootstrap/cache`
-
-Затем
-
-`chmod -R 775 storage`
-
+	@@ -72,19 +88,3 @@
 `chmod -R 775 bootstrap/cache`
 
 
+## pgadmin
+
+Заходим в админку, по умолчанию [localhost:5050](http://localhost:5050/)
+Логин: `admin@admin.com`
+Пароль: `root`
+
+Создаем подключение с БД которую создали через docker-compose, работаем.
+
+Значение `host` указываем `postgres` или так, как прописано название сервиса у вас в docker-compose
+
+
+### Не открывается pgadmin?
+
+Скорее всего проблема с правами? заходим в папку `/docker` на компьютере через терминал и вводим команду
+
+`sudo chown -R 5050:5050 pgadmin/`
