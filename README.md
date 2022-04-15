@@ -40,15 +40,33 @@
 
 
 Заходим в корень проекта пишем:
-	@@ -59,7 +75,7 @@
+
+`sudo chown -R $USER:$USER .`
+
+`sudo chmod -R 775 .`
+
+`sudo chmod -R 775 storage`
+
+`sudo chmod -R ugo+rw storage`
+
+далее:
+
+`sudo chown -R www-data:www-data ./storage/logs/`
+
+`sudo chown -R www-data:www-data ./storage/framework/`
+
+`sudo chown -R www-data:www-data ./bootstrap/cache`
 
 `sudo chmod -R 775 ./bootstrap/cache`
 
 Если все равно есть проблемы делаем так
 
 `sudo chown -R $USER:www-data storage`
+`sudo chown -R $USER:www-data bootstrap/cache`
 
-	@@ -72,19 +88,3 @@
+Затем
+
+`chmod -R 775 storage`
 `chmod -R 775 bootstrap/cache`
 
 
